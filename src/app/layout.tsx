@@ -8,7 +8,7 @@ import Help from "@/components/Help";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Jobman",
+  title: "En route vers l'emploi",
   description: "Aide Jérémy à trouver un job !",
 };
 

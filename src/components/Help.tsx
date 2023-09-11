@@ -5,7 +5,7 @@ import { BsFillEnvelopeFill } from "react-icons/bs";
 
 export default function Help() {
   return (
-    <div className="flex flex-col items-center justify-center ">
+    <div className="flex flex-col items-center justify-center mt-8 ">
       <h2 className="text-4xl font-bold text-center mb-3">
         Comment peux-tu l'aider ?
       </h2>
@@ -13,7 +13,7 @@ export default function Help() {
         <li className="flex items-center gap-2">
           En partageant son profil LinkedIn {"=>"}
           <Link
-            href="https://www.linkedin.com/in/jeremydesloovere/"
+            href="https://www.linkedin.com/in/jeremy-desloovere/"
             target="_blank"
             rel="noopener noreferrer"
           >
