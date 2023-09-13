@@ -1,57 +1,171 @@
 "use client";
-
-import Image from "next/image";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { CiPlay1 } from "react-icons/ci";
-import me from "../../public/assets/me.png";
-import mur from "../../public/assets/mur.png";
-import job from "../../public/assets/job.png";
-
 import { playground } from "@/components/playground";
+import { isMoveOk, isGoal } from "@/utils/functions";
+import { type } from "os";
 
 const Home = () => {
   const [play, setPlay] = useState(false);
+  const [win, setWin] = useState(false);
+  const [message, setMessage] = useState("");
+  const [position, setPosition] = useState({ x: 7, y: 2 });
+  const [level, setLevel] = useState(1);
+  const [memPosition, setMemPosition] = useState({ x: 0, y: 0 });
+  const [map, setMap] = useState(playground);
+
+  interface ColorMap {
+    [key: string]: string;
+  }
+  const colors: ColorMap = {
+    x: "bg-blue-300",
+    "*": "bg-wall",
+    "-": "bg-job bg-blue-300",
+    o: "bg-me bg-yellow-300",
+  };
+  type Position = {
+    x: number;
+    y: number;
+  };
+
+  function getNewPosition(position: Position, direction: string) {
+    switch (direction) {
+      case "ArrowRight":
+        return { x: position.x, y: position.y + 1 };
+      case "ArrowLeft":
+        return { x: position.x, y: position.y - 1 };
+      case "ArrowUp":
+        return { x: position.x - 1, y: position.y };
+      case "ArrowDown":
+        return { x: position.x + 1, y: position.y };
+      default:
+        return position;
+    }
+  }
+
+  useEffect(() => {
+    setMap(initPlayer());
+  }, [play]);
+
+  const initPlayer = () => {
+    const newPlayground = [...playground];
+    newPlayground.forEach((row, rowIndex) => {
+      newPlayground[rowIndex] = row
+        .split("")
+        .map((symbol, colIndex) =>
+          rowIndex === position.x && colIndex === position.y ? "o" : symbol
+        )
+        .join("");
+    });
+    return [...newPlayground];
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: any) => {
+      event.preventDefault();
+      setMessage("");
+
+      const newPosition = getNewPosition(position, event.key);
+      if (isMoveOk(newPosition)) {
+        console.log("nouvelle position: " + newPosition.x, newPosition.y);
+
+        setMemPosition(position);
+        setPosition(newPosition);
+        setMap(movePlayer());
+
+        if (isGoal(position)) {
+          setWin(true);
+          setPlay(false);
+        }
+      } else console.log("vous ne pouvez pas aller dans cette direction");
+      // setMessage("Vous ne pouvez pas aller dans cette direction");
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [position]);
+
+  const movePlayer = () => {
+    console.log("-----------nouveau movePlayer-----------");
+    const newPlayground = [...playground];
+    newPlayground.forEach((row, rowIndex) => {
+      newPlayground[rowIndex] = row
+        .split("")
+        .map((symbol, colIndex) =>
+          rowIndex === memPosition.x && colIndex === memPosition.y
+            ? "x"
+            : symbol
+        )
+        .join("");
+    });
+
+    newPlayground.forEach((row, rowIndex) => {
+      newPlayground[rowIndex] = row
+        .split("")
+        .map((symbol, colIndex) =>
+          rowIndex === position.x && colIndex === position.y ? "o" : symbol
+        )
+        .join("");
+    });
+
+    return [...newPlayground];
+  };
 
   return (
-    <div className="w-2/3 min-h-[60vh] flex justify-center items-center  bg-black">
+    <div
+      className="w-2/3 min-h-[60vh] flex justify-center items-center bg-black"
+      tabIndex={0}
+    >
+      {message && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-info">
+            <span>{message}</span>
+          </div>
+        </div>
+      )}
+
       {play ? (
-        <div className="flex flex-col">
-          <p className="text-3xl underline text-center mb-3">
-            Level 1 : Le Labyrinthe
-          </p>
+        <div className="flex flex-col relative">
+          <p className="text-3xl underline text-center mb-3">Level 1 :</p>
           <div className="flex flex-wrap w-[39rem]">
-            {playground.map((row, colIndex) =>
-              row.split("").map((cell, rowIndex) => (
-                <div
-                  key={`${rowIndex}-${colIndex}`}
-                  className={`w-12 h-12 ${
-                    cell === "x"
-                      ? "bg-blue-500"
-                      : cell === "-"
-                      ? "bg-blue-500"
-                      : cell === "o"
-                      ? "bg-yellow-500"
-                      : cell === "m"
-                      ? "bg-red-200"
-                      : ""
-                  }`}
-                >
-                  {cell === "o" && <Image src={me} alt="me" />}
-                  {cell === "*" && <Image src={mur} alt="mur" />}
-                  {cell === "-" && <Image src={job} alt="job" />}
-                </div>
-              ))
+            {map.map((row, rowIndex) =>
+              row
+                .split("")
+                .map((symbol, colIndex) => (
+                  <div
+                    key={`${rowIndex}-${colIndex}`}
+                    className={`w-12 h-12 bg-cover ${colors[symbol]}`}
+                  />
+                ))
             )}
           </div>
         </div>
       ) : (
         <button
-          className="btn btn-wide btn-lg btn-primary "
+          className="btn btn-wide btn-lg btn-primary"
           onClick={() => setPlay(true)}
         >
-          Jouer
-          <CiPlay1 />
+          Jouer <CiPlay1 />
         </button>
+      )}
+
+      {win && (
+        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="flex flex-col items-center">
+            <p className="text-3xl underline text-center mb-3">
+              Bravo, vous avez gagné !
+            </p>
+            <button
+              className="btn btn-wide btn-lg btn-primary"
+              onClick={() => setPlay(false)}
+            >
+              Level suivant? <CiPlay1 />
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

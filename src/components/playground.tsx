@@ -6,7 +6,7 @@ export const playground = [
   "xxxxxx*x***x*",
   "****x**x*xxx*",
   "xxx*xx*x*xxxx",
-  "x*o**x**xx*xx",
+  "x****x**xx*xx",
   "x***xxxxxx*xx",
   "xxxxxx*****xx",
 ];
@@ -46,6 +46,22 @@ export const playground = [
 
 // export const playground3 = {
 //   level3: "Level 3: Les murs transparents",
+//   map: [
+//     "xxxxxxxxxx*xx",
+//     "x*****x**xmxx",
+//     "mxxxxxxm*x*xx",
+//     "xx*****xxxx-*",
+//     "mxxxxx*x***x*",
+//     "****xm*x*xxx*",
+//     "xxx*xx*x*xxxx",
+//     "x*o*mx**xm*xx",
+//     "x***xxxxxx*xx",
+//     "xxxxxx*****xx",
+//   ],
+// };
+
+// export const playground4 = {
+//   level4: "Level 4: Les murs transparents",
 //   map: [
 //     "xxxxxxxxxx*xx",
 //     "x*****x**xmxx",
