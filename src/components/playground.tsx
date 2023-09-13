@@ -6,7 +6,7 @@ export const playground = [
   "xxxxxx*x***x*",
   "****x**x*xxx*",
   "xxx*xx*x*xxxx",
-  "x****x**xx*xx",
+  "x*x**x**xx*xx",
   "x***xxxxxx*xx",
   "xxxxxx*****xx",
 ];

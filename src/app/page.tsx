@@ -28,37 +28,22 @@ const Home = () => {
     y: number;
   };
 
-  function getNewPosition(position: Position, direction: string) {
-    switch (direction) {
-      case "ArrowRight":
-        return { x: position.x, y: position.y + 1 };
-      case "ArrowLeft":
-        return { x: position.x, y: position.y - 1 };
-      case "ArrowUp":
-        return { x: position.x - 1, y: position.y };
-      case "ArrowDown":
-        return { x: position.x + 1, y: position.y };
-      default:
-        return position;
-    }
-  }
-
   useEffect(() => {
-    setMap(initPlayer());
-  }, [play]);
+    const initPlayer = () => {
+      const newPlayground = [...playground];
+      newPlayground.forEach((row, rowIndex) => {
+        newPlayground[rowIndex] = row
+          .split("")
+          .map((symbol, colIndex) =>
+            rowIndex === position.x && colIndex === position.y ? "o" : symbol
+          )
+          .join("");
+      });
+      return [...newPlayground];
+    };
 
-  const initPlayer = () => {
-    const newPlayground = [...playground];
-    newPlayground.forEach((row, rowIndex) => {
-      newPlayground[rowIndex] = row
-        .split("")
-        .map((symbol, colIndex) =>
-          rowIndex === position.x && colIndex === position.y ? "o" : symbol
-        )
-        .join("");
-    });
-    return [...newPlayground];
-  };
+    setMap(initPlayer());
+  }, [position.x, position.y]);
 
   useEffect(() => {
     const handleKeyDown = (event: any) => {
@@ -77,8 +62,50 @@ const Home = () => {
           setWin(true);
           setPlay(false);
         }
-      } else console.log("vous ne pouvez pas aller dans cette direction");
-      // setMessage("Vous ne pouvez pas aller dans cette direction");
+      }
+      // console.log("vous ne pouvez pas aller dans cette direction");
+      else setMessage("Vous ne pouvez pas aller dans cette direction");
+    };
+
+    const movePlayer = () => {
+      console.log("-----------nouveau movePlayer-----------");
+      const newPlayground = [...playground];
+      newPlayground.forEach((row, rowIndex) => {
+        newPlayground[rowIndex] = row
+          .split("")
+          .map((symbol, colIndex) =>
+            rowIndex === memPosition.x && colIndex === memPosition.y
+              ? "x"
+              : symbol
+          )
+          .join("");
+      });
+
+      newPlayground.forEach((row, rowIndex) => {
+        newPlayground[rowIndex] = row
+          .split("")
+          .map((symbol, colIndex) =>
+            rowIndex === position.x && colIndex === position.y ? "o" : symbol
+          )
+          .join("");
+      });
+
+      return [...newPlayground];
+    };
+
+    const getNewPosition = (position: Position, direction: string) => {
+      switch (direction) {
+        case "ArrowRight":
+          return { x: position.x, y: position.y + 1 };
+        case "ArrowLeft":
+          return { x: position.x, y: position.y - 1 };
+        case "ArrowUp":
+          return { x: position.x - 1, y: position.y };
+        case "ArrowDown":
+          return { x: position.x + 1, y: position.y };
+        default:
+          return position;
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -86,33 +113,7 @@ const Home = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [position]);
-
-  const movePlayer = () => {
-    console.log("-----------nouveau movePlayer-----------");
-    const newPlayground = [...playground];
-    newPlayground.forEach((row, rowIndex) => {
-      newPlayground[rowIndex] = row
-        .split("")
-        .map((symbol, colIndex) =>
-          rowIndex === memPosition.x && colIndex === memPosition.y
-            ? "x"
-            : symbol
-        )
-        .join("");
-    });
-
-    newPlayground.forEach((row, rowIndex) => {
-      newPlayground[rowIndex] = row
-        .split("")
-        .map((symbol, colIndex) =>
-          rowIndex === position.x && colIndex === position.y ? "o" : symbol
-        )
-        .join("");
-    });
-
-    return [...newPlayground];
-  };
+  }, [memPosition.x, memPosition.y, position]);
 
   return (
     <div
