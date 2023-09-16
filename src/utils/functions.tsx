@@ -1,4 +1,3 @@
-import { type } from "os";
 import { playground } from "../components/playground";
 
 type Position = {
@@ -6,16 +5,22 @@ type Position = {
   y: number;
 };
 
-export function isMoveOk(level: number, position: Position, event: any) {
+export function isMoveOk(
+  level: number,
+  position: Position,
+  eventString: string
+) {
   //function which check if the move is ok (no wall, no out of the grid) and return a message if not
 
-  const newPosition = getNewPosition(position, event.key);
+  const newPosition = setNewPosition(position, eventString);
+  // console.log("----newPosition ds ismoveok: ");
+  // console.log(newPosition);
 
-  const limitRow = playground[level - 1].map.length - 1;
-  const limitCol = playground[level - 1].map[0].length - 1;
+  const limitRow = playground[level].map.length - 1;
+  const limitCol = playground[level].map[0].length - 1;
 
   //find the current map with the level id
-  const currentMap = playground[level - 1].map;
+  const currentMap = playground[level].map;
 
   // console.log("currentMap: " + currentMap);
 
@@ -48,30 +53,29 @@ export function isMoveOk(level: number, position: Position, event: any) {
 
 export function isGoal(level: number, position: Position) {
   //find the current map with the level id
-  const currentMap = playground[level - 1].map;
+  const currentMap = playground[level].map;
   // console.log("isGoal: " + position.x, position.y);
   if (currentMap[position.x][position.y] === "-") {
+    console.log("goal");
     return true;
   }
   return false;
 }
 
 //function which return the position of the player
-export function getPosition(level: number) {
-  const currentMap = playground[level - 1].map;
+export function getPlayerPosition(map: string[]) {
   let position: Position = { x: 0, y: 0 };
-  currentMap.forEach((row, rowIndex) => {
-    row.split("").forEach((symbol, colIndex) => {
+  map.map((row, rowIndex) => {
+    row.split("").map((symbol, colIndex) => {
       if (symbol === "o") {
-        position.x = rowIndex;
-        position.y = colIndex;
+        position = { x: rowIndex, y: colIndex };
       }
     });
   });
   return position;
 }
 
-export const getNewPosition = (position: Position, direction: string) => {
+export const setNewPosition = (position: Position, direction: string) => {
   switch (direction) {
     case "ArrowRight":
       return { x: position.x, y: position.y + 1 };
