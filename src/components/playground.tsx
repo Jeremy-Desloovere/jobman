@@ -1,16 +1,3 @@
-// export const playground = [
-//   "xxxxxxxxx**xx",
-//   "x********xx-x",
-//   "xxxxxxxx*x**x",
-//   "xx*****xxx*x*",
-//   "xxxxxx*x***x*",
-//   "****x**x*xxx*",
-//   "xxx*xx*x*xxxx",
-//   "x*x**x**xx*xx",
-//   "x***xxxxxx*xx",
-//   "xxxxxx*****xx",
-// ];
-
 interface PlaygroundItem {
   id: number;
   name: string;
@@ -22,7 +9,7 @@ export const playground: PlaygroundItem[] = [
   {
     id: 1,
     name: "Le Labyrinthe",
-    start: { x: 1, y: 10 }, //7.2
+    start: { x: 7, y: 2 },
     map: [
       "xxxxxxxxx**x-",
       "x********xxxx",
@@ -39,7 +26,7 @@ export const playground: PlaygroundItem[] = [
   {
     id: 2,
     name: "Le serpent",
-    start: { x: 6, y: 4 }, //1.0
+    start: { x: 1, y: 0 },
     map: [
       "*************",
       "xxxxxxxxxxxx*",

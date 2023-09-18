@@ -1,13 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import { CiPlay1 } from "react-icons/ci";
+import { HiOutlineHome } from "react-icons/hi";
 import { playground } from "@/components/playground";
 import { isMoveOk, isGoal } from "@/utils/functions";
 import { Map } from "@/components/Map";
+import { Message } from "@/components/Message";
+import Link from "next/link";
 
 const Home = () => {
-  const [play, setPlay] = useState(false);
-  const [win, setWin] = useState(false);
+  const [play, setPlay] = useState<boolean>(false);
+  const [win, setWin] = useState<boolean>(false);
   const [message, setMessage] = useState("");
   const [level, setLevel] = useState(0);
   const [position, setPosition] = useState(playground[0].start);
@@ -41,7 +44,6 @@ const Home = () => {
           } else {
             setWin(true);
           }
-          // window.removeEventListener("keydown", handleKeyDown);
         }
       } else setMessage("Vous ne pouvez pas aller dans cette direction");
     };
@@ -53,8 +55,6 @@ const Home = () => {
   }, [level, position]);
 
   const initGame = () => {
-    // setPlay(false);
-    console.log("init game");
     setWin(false);
     setMessage("");
     setLevel(0);
@@ -72,13 +72,7 @@ const Home = () => {
 
   return (
     <div className="w-2/3 min-h-[60vh] flex justify-center items-center bg-black">
-      {message && (
-        <div className="toast toast-top toast-center">
-          <div className="alert alert-info">
-            <span>{message}</span>
-          </div>
-        </div>
-      )}
+      {message && <Message message={message} />}
       {play ? (
         <div className="flex flex-col relative">
           <p className="text-3xl  text-center mb-3">
@@ -111,8 +105,9 @@ const Home = () => {
       )}
       {endOfGame && (
         <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="flex flex-col items-center">
-            <p className="text-3xl  text-center mb-3">Fin du jeu</p>
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-3xl  text-center mb-3">Fin du jeu.</p>
+            <p className="text-xl mb-3">Merci pour votre participation.</p>
 
             <button
               className="btn btn-wide btn-lg btn-primary"
@@ -120,6 +115,11 @@ const Home = () => {
             >
               Rejouer <CiPlay1 />
             </button>
+            <Link href="/">
+              <button className="btn btn-wide btn-lg btn-neutral">
+                Accueil <HiOutlineHome />
+              </button>
+            </Link>
           </div>
         </div>
       )}

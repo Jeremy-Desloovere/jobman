@@ -14,6 +14,7 @@ module.exports = {
         me: "url('../../public/assets/me.png')",
         wall: "url('../../public/assets/wall.png')",
         job: "url('../../public/assets/job.png')",
+        arrows: "url('../../public/assets/arrows.png')",
       },
     },
   },

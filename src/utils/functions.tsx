@@ -5,27 +5,27 @@ type Position = {
   y: number;
 };
 
+/**
+ *  function which check if the move is ok (no wall, no out of the grid) and return a message if not
+ * @param level : level id
+ * @param position : player position
+ * @param eventString : direction of the move
+ * @returns : new position of the player if the move is ok, false if not
+ */
 export function isMoveOk(
   level: number,
   position: Position,
   eventString: string
 ) {
-  //function which check if the move is ok (no wall, no out of the grid) and return a message if not
-
+  //put the player on the new position
   const newPosition = setNewPosition(position, eventString);
-  // console.log("----newPosition ds ismoveok: ");
-  // console.log(newPosition);
-
   const limitRow = playground[level].map.length - 1;
   const limitCol = playground[level].map[0].length - 1;
 
   //find the current map with the level id
   const currentMap = playground[level].map;
 
-  // console.log("currentMap: " + currentMap);
-
-  //check if the position is in the grid
-
+  //check if the position is in the grid return false if not
   if (
     newPosition.x < 0 ||
     newPosition.x > limitRow ||
@@ -37,20 +37,26 @@ export function isMoveOk(
   }
 
   //search if there is a wall on the position of playground where level = playground id
-
   if (currentMap[newPosition.x][newPosition.y] === "*") {
-    console.log("mur sur position :" + newPosition.x, newPosition.y);
+    console.log("mur sur position ");
     return false;
   }
 
+  //search if there is a wall on the position of playground where level = playground id
   if (currentMap[newPosition.x][newPosition.y] === "m") {
-    console.log("sortie de jeu" + currentMap[newPosition.x][newPosition.y]);
+    console.log("mur transparent");
     return false;
   }
 
   return newPosition;
 }
 
+/**
+ * function which check if the player is on the goal
+ * @param level : level id
+ * @param position : player position
+ * @returns true if the player is on the goal
+ */
 export function isGoal(level: number, position: Position) {
   //find the current map with the level id
   const currentMap = playground[level].map;
@@ -62,19 +68,12 @@ export function isGoal(level: number, position: Position) {
   return false;
 }
 
-//function which return the position of the player
-export function getPlayerPosition(map: string[]) {
-  let position: Position = { x: 0, y: 0 };
-  map.map((row, rowIndex) => {
-    row.split("").map((symbol, colIndex) => {
-      if (symbol === "o") {
-        position = { x: rowIndex, y: colIndex };
-      }
-    });
-  });
-  return position;
-}
-
+/**
+ * function which set the new position of the player
+ * @param position : player position
+ * @param direction : direction of the move
+ * @returns : new position of the player
+ */
 export const setNewPosition = (position: Position, direction: string) => {
   switch (direction) {
     case "ArrowRight":
