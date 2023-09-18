@@ -10,7 +10,7 @@ const colors: ColorMap = {
   "*": "bg-red-400",
   "-": "bg-job bg-gray-300",
   o: "bg-me bg-blue-300",
-  m: "bg-red-300",
+  m: "bg-gray-300",
 };
 
 type Position = {
