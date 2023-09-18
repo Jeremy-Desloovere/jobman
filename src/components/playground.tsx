@@ -24,8 +24,8 @@ export const playground: PlaygroundItem[] = [
     name: "Le Labyrinthe",
     start: { x: 1, y: 10 }, //7.2
     map: [
-      "xxxxxxxxx**xx",
-      "x********xx-x",
+      "xxxxxxxxx**x-",
+      "x********xxxx",
       "xxxxxxxx*x**x",
       "xx*****xxx*x*",
       "xxxxxx*x***x*",
@@ -73,18 +73,18 @@ export const playground: PlaygroundItem[] = [
   {
     id: 4,
     name: "Où sont les murs ?",
-    start: { x: 3, y: 10 }, //7.2
+    start: { x: 9, y: 11 }, //7.2
     map: [
-      "xxxxxxxxxx*xx",
-      "x*****x**xmxx",
-      "mxxxxxxm*x*xx",
-      "xx*****xxxx-*",
-      "mxxxxx*x***x*",
-      "****xm*x*xxx*",
-      "xxx*xx*x*xxxx",
-      "x*x*mx**xm*xx",
-      "x***xxxxxx*xx",
-      "xxxxxx*****xx",
+      "xxxxxxxxxxmxx",
+      "xmmmmmxmmxmxx",
+      "mxxxxxxmmxmxx",
+      "xxmmmmmxxxx-m",
+      "mxxxxxmxmmmxm",
+      "mmmmxmmxmxxxm",
+      "xxxmxxmxmxxxx",
+      "xmxmmxmmxmmxx",
+      "xmmmxxxxxxmxx",
+      "xxxxxxmmmmmxx",
     ],
   },
 ];

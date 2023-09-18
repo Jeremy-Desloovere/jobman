@@ -10,7 +10,7 @@ const Home = () => {
   const [win, setWin] = useState(false);
   const [message, setMessage] = useState("");
   const [level, setLevel] = useState(0);
-  const [position, setPosition] = useState(playground[level].start);
+  const [position, setPosition] = useState(playground[0].start);
   const [endOfGame, setEndOfGame] = useState(false);
 
   useEffect(() => {
@@ -52,6 +52,24 @@ const Home = () => {
     };
   }, [level, position]);
 
+  const initGame = () => {
+    // setPlay(false);
+    console.log("init game");
+    setWin(false);
+    setMessage("");
+    setLevel(0);
+    setPosition(playground[0].start);
+    setEndOfGame(false);
+  };
+
+  const nextLevel = () => {
+    console.log("next level");
+    setLevel(level + 1);
+    setWin(false);
+    setMessage("");
+    setPosition(playground[level + 1].start);
+  };
+
   return (
     <div className="w-2/3 min-h-[60vh] flex justify-center items-center bg-black">
       {message && (
@@ -84,11 +102,7 @@ const Home = () => {
             </p>
             <button
               className="btn btn-wide btn-lg btn-primary"
-              onClick={() => {
-                setLevel(level + 1);
-                setWin(false);
-                setPosition(playground[level + 1].start);
-              }}
+              onClick={nextLevel}
             >
               Level suivant? <CiPlay1 />
             </button>
@@ -102,13 +116,7 @@ const Home = () => {
 
             <button
               className="btn btn-wide btn-lg btn-primary"
-              onClick={() => {
-                setLevel(0);
-                setWin(false);
-                setPlay(true);
-                setPosition(playground[level].start);
-                setEndOfGame(false);
-              }}
+              onClick={initGame}
             >
               Rejouer <CiPlay1 />
             </button>
