@@ -63,7 +63,7 @@ export default function GamePage() {
   };
 
   const nextLevel = () => {
-    console.log("next level");
+    // console.log("next level");
     setLevel(level + 1);
     setWin(false);
     setMessage("");

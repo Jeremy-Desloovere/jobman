@@ -32,19 +32,19 @@ export function isMoveOk(
     newPosition.y < 0 ||
     newPosition.y > limitCol
   ) {
-    console.log("hors limite");
+    // console.log("hors limite");
     return false;
   }
 
   //search if there is a wall on the position of playground where level = playground id
   if (currentMap[newPosition.x][newPosition.y] === "*") {
-    console.log("mur sur position ");
+    // console.log("mur sur position ");
     return false;
   }
 
   //search if there is a wall on the position of playground where level = playground id
   if (currentMap[newPosition.x][newPosition.y] === "m") {
-    console.log("mur transparent");
+    // console.log("mur transparent");
     return false;
   }
 
@@ -62,7 +62,7 @@ export function isGoal(level: number, position: Position) {
   const currentMap = playground[level].map;
   // console.log("isGoal: " + position.x, position.y);
   if (currentMap[position.x][position.y] === "-") {
-    console.log("goal");
+    // console.log("goal");
     return true;
   }
   return false;

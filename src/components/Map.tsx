@@ -45,8 +45,8 @@ export const Map: React.FC<MapProps> = ({ level, playerPosition }) => {
     })
   );
 
-  console.log("Transformed Map:", transformedMap);
-  console.log("Player Position:", playerPosition);
+  // console.log("Transformed Map:", transformedMap);
+  // console.log("Player Position:", playerPosition);
 
   return (
     <div className="flex flex-wrap w-[39rem] bg-white">
