@@ -17,10 +17,10 @@ export default function Intro() {
       {click && <Message message={message} />}
 
       <div className="flex flex-col items-center justify-center mb-8">
-        <h1 className="text-6xl font-bold text-center mb-2">
+        <h1 className="text-xl md:text-4xl lg:text-6xl font-bold text-center mb-2">
           Aide Jérémy à trouver du travail !
         </h1>
-        <p className="text-2xl text-center">
+        <p className="text-xl md:text-2xl text-center">
           Utilise les flèches du clavier pour te déplacer dans le labyrinthe et
           décrocher le job.
         </p>

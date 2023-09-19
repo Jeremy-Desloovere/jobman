@@ -71,58 +71,65 @@ export default function GamePage() {
   };
 
   return (
-    <div className="w-2/3 min-h-[60vh] flex justify-center items-center bg-black">
-      {message && <Message message={message} />}
-      {play ? (
-        <div className="flex flex-col relative">
-          <p className="text-3xl  text-center mb-3">
-            Level {level + 1} : {playground[level].name}
-          </p>
-          <Map level={level} playerPosition={position} />
-        </div>
-      ) : (
-        <button
-          className="btn btn-wide btn-lg btn-primary"
-          onClick={() => setPlay(true)}
-        >
-          Jouer <CiPlay1 />
-        </button>
-      )}
-      {win && (
-        <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="flex flex-col items-center">
+    <>
+      <div className="hidden w-2/3 min-h-[60vh] lg:flex justify-center items-center bg-black">
+        {message && <Message message={message} />}
+        {play ? (
+          <div className="flex flex-col relative">
             <p className="text-3xl  text-center mb-3">
-              Bravo, vous avez gagné !
+              Level {level + 1} : {playground[level].name}
             </p>
-            <button
-              className="btn btn-wide btn-lg btn-primary"
-              onClick={nextLevel}
-            >
-              Level suivant? <CiPlay1 />
-            </button>
+            <Map level={level} playerPosition={position} />
           </div>
-        </div>
-      )}
-      {endOfGame && (
-        <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-3xl  text-center mb-3">Fin du jeu.</p>
-            <p className="text-xl mb-3">Merci pour votre participation.</p>
-
-            <button
-              className="btn btn-wide btn-lg btn-primary"
-              onClick={initGame}
-            >
-              Rejouer <CiPlay1 />
-            </button>
-            <Link href="/">
-              <button className="btn btn-wide btn-lg btn-neutral">
-                Accueil <HiOutlineHome />
+        ) : (
+          <button
+            className="btn btn-wide btn-lg btn-primary"
+            onClick={() => setPlay(true)}
+          >
+            Jouer <CiPlay1 />
+          </button>
+        )}
+        {win && (
+          <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="flex flex-col items-center">
+              <p className="text-3xl  text-center mb-3">
+                Bravo, vous avez gagné !
+              </p>
+              <button
+                className="btn btn-wide btn-lg btn-primary"
+                onClick={nextLevel}
+              >
+                Level suivant? <CiPlay1 />
               </button>
-            </Link>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+        {endOfGame && (
+          <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="flex flex-col items-center gap-3">
+              <p className="text-3xl  text-center mb-3">Fin du jeu.</p>
+              <p className="text-xl mb-3">Merci pour votre participation.</p>
+
+              <button
+                className="btn btn-wide btn-lg btn-primary"
+                onClick={initGame}
+              >
+                Rejouer <CiPlay1 />
+              </button>
+              <Link href="/">
+                <button className="btn btn-wide btn-lg btn-neutral">
+                  Accueil <HiOutlineHome />
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="lg:hidden flex flex-col items-center justify-center">
+        <h2 className="text-2xl font-bold text-center mb-3">
+          Ce jeu est jouable uniquement sur pc
+        </h2>
+      </div>
+    </>
   );
 }
