@@ -3,6 +3,11 @@ import React from "react";
 import { AiFillLinkedin } from "react-icons/ai";
 import { BsFillEnvelopeFill } from "react-icons/bs";
 
+const URL_DE_VOTRE_ARTICLE = " https://www.linkedin.com/in/jeremy-desloovere/";
+const TITRE_DE_VOTRE_ARTICLE = "JobMan";
+const DESCRIPTION_DE_VOTRE_ARTICLE = "Aide Jérémy à trouver un job !";
+const VOTRE_SITE_WEB = "https://jobman.vercel.app/";
+
 export default function Help() {
   return (
     <div className="flex flex-col items-center justify-center mt-8 ">
@@ -14,6 +19,7 @@ export default function Help() {
           Partager ce petit jeu sur LinkedIn {"=>"}
           <Link
             href="https://www.linkedin.com/in/jeremy-desloovere/"
+            // https://www.linkedin.com/shareArticle?mini=true&url=URL_DE_VOTRE_ARTICLE&title=TITRE_DE_VOTRE_ARTICLE&summary=DESCRIPTION_DE_VOTRE_ARTICLE&source=VOTRE_SITE_WEB" target="_blank
             target="_blank"
             rel="noopener noreferrer"
           >

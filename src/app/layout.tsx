@@ -8,8 +8,16 @@ import Help from "@/components/Help";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "En route vers l'emploi",
+  title: "JobMan",
   description: "Aide Jérémy à trouver un job !",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "https://jobman.vercel.app/",
+    title: "JobMan",
+    description: "Aide Jérémy à trouver un job !",
+    image: "https://jobman.vercel.app/images/og-image.png",
+  },
 };
 
 export default function RootLayout({

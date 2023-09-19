@@ -6,9 +6,9 @@ interface ColorMap {
 }
 
 const colors: ColorMap = {
-  x: "bg-gray-300",
-  "*": "bg-red-400",
-  "-": "bg-job bg-gray-300",
+  x: "bg-gray-400",
+  "*": "bg-wall",
+  "-": "bg-job bg-gray-400",
   o: "bg-me bg-blue-300",
   m: "bg-gray-300",
 };
