@@ -43,6 +43,7 @@ export default function GamePage() {
             setEndOfGame(true);
           } else {
             setWin(true);
+            // setPlay(false);
           }
         }
       } else setMessage("Vous ne pouvez pas aller dans cette direction");
@@ -66,13 +67,14 @@ export default function GamePage() {
     // console.log("next level");
     setLevel(level + 1);
     setWin(false);
+    // setPlay(true);
     setMessage("");
     setPosition(playground[level + 1].start);
   };
 
   return (
     <>
-      <div className="hidden w-2/3 min-h-[60vh] lg:flex justify-center items-center bg-black">
+      <div className="hidden w-2/3 min-h-[60vh] lg:flex justify-center items-center">
         {message && <Message message={message} />}
         {play ? (
           <div className="flex flex-col relative">
@@ -90,9 +92,9 @@ export default function GamePage() {
           </button>
         )}
         {win && (
-          <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="flex flex-col items-center">
-              <p className="text-3xl  text-center mb-3">
+          <div className="absolute top-30 left-0 w-full h-full  flex justify-center items-center">
+            <div className="flex flex-col items-center gap-4">
+              <p className="text-3xl  text-center mb-3 bg-success text-neutral p-4 rounded-lg transition-opacity  ">
                 Bravo, vous avez gagné !
               </p>
               <button
@@ -105,10 +107,14 @@ export default function GamePage() {
           </div>
         )}
         {endOfGame && (
-          <div className="absolute top-30 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="absolute top-30 left-0 w-full h-full  flex justify-center items-center">
             <div className="flex flex-col items-center gap-3">
-              <p className="text-3xl  text-center mb-3">Fin du jeu.</p>
-              <p className="text-xl mb-3">Merci pour votre participation.</p>
+              <p className="text-3xl  text-center mb-3 text-neutral">
+                Fin du jeu.
+              </p>
+              <p className="text-xl mb-3 text-neutral">
+                Merci pour votre participation.
+              </p>
 
               <button
                 className="btn btn-wide btn-lg btn-primary"
